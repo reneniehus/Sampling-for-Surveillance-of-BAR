@@ -1,0 +1,28 @@
+---
+title: "Simulating sampling"
+output: html_notebook
+---
+created: 2017-08-04
+
+This is an R notebook, which is a special form of an R script that helps to communicate R code easily with with others. For example, you can insert code in form of "chunks" and the result of these chunks is then displayed directly in the working document. Like this:
+```{r}
+plot(cars)
+```
+
+## Summary and clarification of project: Metrics for Public Health-Perspective Surveillance of Bacterial Antibiotic Resistance
+As a first step, let's use github to work together a this document, which will also help to clarify the goal of this project, and the goal of this modelling excercise in particular. 
+
+**Main goal:** To improve our estimates of the extend of clinically relevant antibiotic resistance in bacteria using sampling that is less costly in order to cover low-income regions.  
+
+*The standard at the moment*: With the GLASS initiative, the WHO calls for standardised routine surveillance of AMR. It focusses on collecting priority clinical samples [for instance pathogens from blood, urine, feaces or urethral and cervical swabs] and case-findings of selected indicators. 
+
+*Problem to solve*: This routine surveillance is very hard to do in low-resource settings. For instance, in many regions in Kenya there is little to nothing known about the burden of antimicrobial resistance. 
+
+*Proposal with this project*: Instead of using routine single-patient samples, one can use pools of human stool samples to estimate the resistance burden in a population. The expected benefits are that this method 1) reduces the costs by analysing the pooled sample instead of every individual sample, and that it 2) allows to detect genes that are otherwise under the threshold for detection on the individual sample level. 
+
+*More details on the proposed method*: 
+Given a region for which we want to estimate burden of antimicrobial resistance, we can select a number of *n* individuals in this region, at random. Now, thew these *n* samples can be pooled into m different pools, where *m* < *n* in order to achieve the above mentioned benefits. On each of the *m* pools we will then perform shotgun analysis and bioinformatics pipelines to get 1) the abundances of different species in each pool and 2) the abundance of different resistance genes, and even phage and plasmid genes.
+\
+\
+Logically, the mean of these abundances across the pools [weighted by the pool-sizes] will give the mean that we would get from a pool of all *n* samples. Importantly, because we have multiple pools, we have information about the variation of the abundance. We want to estimate the between-individual patient variation using the between-pool variation. For this we use the theory developed by Caudill 2010, and we now want to test this theory in simulated scenarios. 
+
