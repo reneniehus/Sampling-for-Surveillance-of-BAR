@@ -10,9 +10,9 @@ plot(cars)
 ```
 
 ## Summary and clarification of project: Metrics for Public Health-Perspective Surveillance of Bacterial Antibiotic Resistance
-As a first step, let's use github to work together a this document, which will also help to clarify the goal of this project, and the goal of this modelling excercise in particular. 
+As a first step, let's use github to work together on this first document. The aim with this document is to clarify the goal of this project, and the goal of this modelling excercise in particular. 
 
-**Main goal:** To improve our estimates of the extend of clinically relevant antibiotic resistance in bacteria using sampling that is less costly in order to cover low-income regions.  
+**Main goal of the project:** To improve our estimates of the extend of clinically relevant antibiotic resistance in bacteria using sampling that is less costly in order to cover low-resource regions.  
 
 *The standard at the moment*: With the GLASS initiative, the WHO calls for standardised routine surveillance of AMR. It focusses on collecting priority clinical samples [for instance pathogens from blood, urine, feaces or urethral and cervical swabs] and case-findings of selected indicators. 
 
