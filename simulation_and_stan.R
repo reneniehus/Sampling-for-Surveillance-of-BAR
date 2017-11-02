@@ -1,3 +1,4 @@
+###### Simulating the population #######
 library(rethinking)
 library(tidyverse)
 # simutate a target population N
@@ -21,6 +22,7 @@ gene_v <- c( q_gene , rep(0,N-n_resA) )
 df.pop <- data_frame( N_v , carr_v , gene_v )
 df.pop$gene_v[] %>% simplehist() # this will look zero inflated from non-carriers
 
+########## Sampling from the population #######
 # 1 sampling: individual
 n <- 10000 # how many patients we sample from
 samp1 <-  sample_n(df.pop , size=n , replace=F)
@@ -37,6 +39,7 @@ sampl2.pooled <- samp2 %>%
 n_c = 20
 sampl3.c <- sample_n( df.pop[df.pop$carr_v==1,] , n_c , replace=F )
 
+######### prepare for stan ########
 # get data into stan format
 #sampl2.pooled$gene_v_log <- log(sampl2.pooled$pooled_q)
 gene_on <- as.numeric(sampl2.pooled$pooled_q != 0) # where in the vector the gene is on
@@ -54,6 +57,9 @@ stan.d <- list(
                 mu_c = 7,
                 sigma_c = 3
 )
+
+######### run the model #########
+# use standard stan
 # set up stan
 rstan_options( auto_write = TRUE )
 options(mc.cores = parallel::detectCores() )
@@ -66,6 +72,7 @@ precis(mod.1) %>% plot(pars=c('f_gene_carr'),xlim=c(0.2,0.6))
 mod.1 %>% print(pars=c('f_gene_carr'))
 mod.1 %>% plot(pars=c('f_gene_carr'))
 
+# use rethinking
 ## do the same using rethinking
 model <- alist(
                 q ~ dzin(f_gene_carr,pool_size,mean_p,sigma_p),
@@ -90,5 +97,3 @@ dzin <- function(q,f_gene_carr,pool_size,mean_p,sigma_p,log=TRUE){
 # 
 
 #
-
-
