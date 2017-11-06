@@ -58,6 +58,9 @@ stan.d <- list(
                 sigma_c = 3
 )
 
+
+
+
 ######### run the model #########
 # use standard stan
 # set up stan
@@ -72,28 +75,8 @@ precis(mod.1) %>% plot(pars=c('f_gene_carr'),xlim=c(0.2,0.6))
 mod.1 %>% print(pars=c('f_gene_carr'))
 mod.1 %>% plot(pars=c('f_gene_carr'))
 
-# use rethinking
-## do the same using rethinking
-model <- alist(
-                q ~ dzin(f_gene_carr,pool_size,mean_p,sigma_p),
-                logit(f_gene_carr) <- f_interc,
-                f_interc ~ dnorm(0,1)
-)
-# define my own likelihood. I could turn q == -Inf where no gene and change that in if-statement
-dzin <- function(q,f_gene_carr,pool_size,mean_p,sigma_p,log=TRUE){
-                ll <- 0
-                if (q == 0){
-                                ll <- dbinom(0,pool_size,f_gene_carr)
-                } else {
-                                lp <- rep(NA,pool_size)
-                                for(k in 1:pool_size){
-                                                lp[k] <- dbinom(k,pool_size,f_gene_carr) * dnorm(q,mean_p*k,sigma_p*k)
-                                }
-                                ll <- sum(lp)
-                }
-                if (log == TRUE) ll <- log(ll)
-                return(ll)
-}
-# 
 
-#
+
+
+
+                
